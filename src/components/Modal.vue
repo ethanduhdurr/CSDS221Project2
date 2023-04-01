@@ -113,35 +113,52 @@ export default {
       const newTitle = this.modalToDoTitle;
       const newDescription = this.modalToDoDescription;
       const newDeadline = this.modalDeadline;
+      const titlePanel = document.getElementById('titlePanel');
+      const descriptionPanel = document.getElementById('descriptionPanel');
+      const datePanel = document.getElementById('datePanel');
+      const errorDivs = [
+        titlePanel.nextSibling,
+        descriptionPanel.nextSibling,
+        datePanel.nextSibling,
+      ];
+      for (const errorDiv of errorDivs) {
+        if (
+          errorDiv &&
+          errorDiv.classList &&
+          errorDiv.classList.contains('error-message')
+        ) {
+          errorDiv.remove();
+        }
+      }
       if (!newTitle.trim() || !newDescription.trim() || !newDeadline) {
         if (!newTitle.trim()) {
-          const titlePanel = document.getElementById('titlePanel');
           titlePanel.style.border = '1px solid red';
           const titleError = document.createElement('div');
           titleError.style.color = 'red';
           titleError.innerHTML = 'Title is required';
+          titleError.classList.add('error-message');
           titlePanel.parentNode.insertBefore(
             titleError,
             titlePanel.nextSibling
           );
         }
         if (!newDescription.trim()) {
-          const descriptionPanel = document.getElementById('descriptionPanel');
           descriptionPanel.style.border = '1px solid red';
           const descriptionError = document.createElement('div');
           descriptionError.style.color = 'red';
           descriptionError.innerHTML = 'Description is required';
+          descriptionError.classList.add('error-message');
           descriptionPanel.parentNode.insertBefore(
             descriptionError,
             descriptionPanel.nextSibling
           );
         }
         if (!newDeadline) {
-          const datePanel = document.getElementById('datePanel');
           datePanel.style.border = '1px solid red';
           const dateError = document.createElement('div');
           dateError.style.color = 'red';
           dateError.innerHTML = 'Deadline is required';
+          dateError.classList.add('error-message');
           datePanel.parentNode.insertBefore(dateError, datePanel.nextSibling);
         }
         return;

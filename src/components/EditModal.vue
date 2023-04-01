@@ -102,6 +102,10 @@ export default {
       const newDescription = this.editedToDo.toDoDescription;
       const newDeadline = this.editedToDo.deadline;
 
+      // Remove previous error messages
+      const errorElements = document.querySelectorAll('.error-message');
+      errorElements.forEach((element) => element.remove());
+
       if (!newDescription || !newDeadline) {
         if (!newDescription) {
           const descriptionPanel = document.getElementById('descriptionPanel');
@@ -109,10 +113,14 @@ export default {
           const descriptionError = document.createElement('div');
           descriptionError.style.color = 'red';
           descriptionError.innerHTML = 'Description is required';
+          descriptionError.classList.add('error-message'); // add class to new error message
           descriptionPanel.parentNode.insertBefore(
             descriptionError,
             descriptionPanel.nextSibling
           );
+        } else {
+          const descriptionPanel = document.getElementById('descriptionPanel');
+          descriptionPanel.style.border = '';
         }
         if (!newDeadline) {
           const datePanel = document.getElementById('datePanel');
@@ -120,7 +128,11 @@ export default {
           const dateError = document.createElement('div');
           dateError.style.color = 'red';
           dateError.innerHTML = 'Deadline is required';
+          dateError.classList.add('error-message'); // add class to new error message
           datePanel.parentNode.insertBefore(dateError, datePanel.nextSibling);
+        } else {
+          const datePanel = document.getElementById('datePanel');
+          datePanel.style.border = '';
         }
         return;
       }
