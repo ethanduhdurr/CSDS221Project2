@@ -82,7 +82,7 @@ export default {
   props: {
     todos: {
       type: Object,
-      required: true,
+      default: () => ({}),
     },
     editShow: {
       type: Boolean,
