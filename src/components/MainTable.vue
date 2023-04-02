@@ -46,6 +46,7 @@
             <td>
               <div>
                 <button
+                  v-if="!todos.completed"
                   id="updateButton"
                   type="button"
                   @click="
@@ -141,23 +142,51 @@ export default {
         (todo) => todo.toDoTitle === newTodo.toDoTitle
       );
       if (todoExists) {
+        toastr.options = {
+          closeButton: false,
+          debug: false,
+          newestOnTop: false,
+          progressBar: false,
+          positionClass: 'toast-bottom-right',
+          preventDuplicates: true,
+          onclick: null,
+          showDuration: '300',
+          hideDuration: '1000',
+          timeOut: '5000',
+          extendedTimeOut: '1000',
+          showEasing: 'swing',
+          hideEasing: 'linear',
+          showMethod: 'fadeIn',
+          hideMethod: 'fadeOut',
+        };
         toastr.error('A task with the same title already exists!');
         return;
       } else {
         // Add the new todo to the list
         this.todos.push(newTodo);
         this.showModal = false;
+        toastr.options = {
+          closeButton: false,
+          debug: false,
+          newestOnTop: false,
+          progressBar: false,
+          positionClass: 'toast-bottom-right',
+          preventDuplicates: true,
+          onclick: null,
+          showDuration: '300',
+          hideDuration: '1000',
+          timeOut: '5000',
+          extendedTimeOut: '1000',
+          showEasing: 'swing',
+          hideEasing: 'linear',
+          showMethod: 'fadeIn',
+          hideMethod: 'fadeOut',
+        };
         toastr.success('Task added successfully!');
       }
     },
     toggleTodo(completedTodo) {
       completedTodo.completed = !completedTodo.completed;
-      var updateButton = document.getElementById('updateButton');
-      if (completedTodo.completed) {
-        updateButton.style.display = 'none';
-      } else {
-        updateButton.style.display = 'block';
-      }
     },
     editTodo(oldTodo, updatedTodo) {
       const index = this.todos.findIndex((todos) => todos === oldTodo);
